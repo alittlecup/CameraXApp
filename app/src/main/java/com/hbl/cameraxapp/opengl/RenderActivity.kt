@@ -8,9 +8,10 @@ import com.hbl.cameraxapp.AbsGLSurfaceActivity
 import com.hbl.cameraxapp.opengl.part1.NativeColorRender
 import com.hbl.cameraxapp.opengl.part2.RectangleRenderer
 import com.hbl.cameraxapp.opengl.part2.SimpleRender
+import com.hbl.cameraxapp.opengl.part2.TextureRenderer
 
 class RenderActivity : AbsGLSurfaceActivity() {
-    override fun bindRender(): GLSurfaceView.Renderer = RectangleRenderer()
+    override fun bindRender(): GLSurfaceView.Renderer =TextureRenderer()
 
 
 }

@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':color'
 rootProject.name='Camera X app'
