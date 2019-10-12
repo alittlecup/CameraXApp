@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".CameraActivity">
+
+        <TextureView
+            android:id="@+id/texture_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_rotation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="220dp"
+            android:text="设置旋转角度"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <Button
+            android:id="@+id/btn_rotation_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintEnd_toStartOf="@id/btn_rotation_90"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_rotation" />
+
+        <Button
+            android:id="@+id/btn_rotation_90"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="90"
+            app:layout_constraintEnd_toStartOf="@+id/btn_rotation_180"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_rotation_0"
+            app:layout_constraintTop_toBottomOf="@id/text_rotation" />
+
+        <Button
+            android:id="@+id/btn_rotation_180"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="180"
+            app:layout_constraintEnd_toStartOf="@+id/btn_rotation_270"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_rotation_90"
+            app:layout_constraintTop_toBottomOf="@id/text_rotation" />
+
+        <Button
+            android:id="@+id/btn_rotation_270"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="270"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_rotation_180"
+            app:layout_constraintTop_toBottomOf="@id/text_rotation" />
+
+        <TextView
+            android:id="@+id/text_aspect_ratio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="设置纵横比"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_rotation_0" />
+
+
+        <Button
+            android:id="@+id/btn_ratio_1_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1:1"
+            app:layout_constraintEnd_toStartOf="@id/btn_ratio_3_4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_aspect_ratio" />
+
+        <Button
+            android:id="@+id/btn_ratio_3_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3:4"
+            app:layout_constraintEnd_toStartOf="@+id/btn_ratio_1_1"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_ratio_9_16"
+            app:layout_constraintTop_toBottomOf="@id/text_aspect_ratio" />
+
+        <Button
+            android:id="@+id/btn_ratio_9_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9:16"
+            app:layout_constraintEnd_toStartOf="@+id/btn_ratio_full"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_ratio_3_4"
+            app:layout_constraintTop_toBottomOf="@id/text_aspect_ratio" />
+
+        <Button
+            android:id="@+id/btn_ratio_full"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FULL"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_ratio_9_16"
+            app:layout_constraintTop_toBottomOf="@id/text_aspect_ratio" />
+
+        <TextView
+            android:id="@+id/text_resolution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="设置分辨率(宽方向为基准)"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_ratio_1_1" />
+
+        <Button
+            android:id="@+id/btn_720"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="720"
+            app:layout_constraintEnd_toStartOf="@+id/btn_1080"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_resolution" />
+
+        <Button
+            android:id="@+id/btn_1080"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1080"
+            app:layout_constraintEnd_toStartOf="@+id/btn_2160"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_720"
+            app:layout_constraintTop_toBottomOf="@id/text_resolution" />
+
+        <Button
+            android:id="@+id/btn_2160"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2160"
+            app:layout_constraintEnd_toStartOf="@+id/btn_3024"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_1080"
+            app:layout_constraintTop_toBottomOf="@id/text_resolution" />
+
+        <Button
+            android:id="@+id/btn_3024"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3024"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_2160"
+            app:layout_constraintTop_toBottomOf="@id/text_resolution" />
+
+        <Button
+            android:id="@+id/btn_camera_lens"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="Le"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_setinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:minWidth="100dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_preview_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:minWidth="100dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

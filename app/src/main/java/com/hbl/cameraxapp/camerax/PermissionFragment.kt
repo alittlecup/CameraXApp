@@ -1,4 +1,4 @@
-package com.hbl.cameraxapp.fragments
+package com.hbl.cameraxapp.camerax
 
 import android.Manifest
 import android.content.Context

@@ -1,11 +1,10 @@
-package com.hbl.cameraxapp.fragments
+package com.hbl.cameraxapp.camerax
 
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Camera
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.hardware.display.DisplayManager
@@ -15,7 +14,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
-import android.provider.Telephony.Mms.Part.FILENAME
 import android.util.DisplayMetrics
 import android.util.Log
 import android.util.Rational
@@ -42,7 +40,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 import java.nio.ByteBuffer
-import java.nio.file.Files.createFile
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -101,7 +98,8 @@ class CameraFragment : Fragment() {
         super.onResume()
 
         if (!PermissionFragment.hasPermission(requireContext())) {
-            Navigation.findNavController(requireActivity(),R.id.fragment_container).navigate(CameraFragmentDirections.actionCameraToPermissions())
+            Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                .navigate(CameraFragmentDirections.actionCameraToPermissions())
         }
     }
 
@@ -159,11 +157,14 @@ class CameraFragment : Fragment() {
 
     private val imageSavedListener = object : ImageCapture.OnImageSavedListener {
         override fun onError(
-            error: ImageCapture.UseCaseError, message: String, exc: Throwable?
+            imageCaptureError: ImageCapture.ImageCaptureError,
+            message: String,
+            cause: Throwable?
         ) {
             Log.e(TAG, "Photo capture failed: $message")
-            exc?.printStackTrace()
+            cause?.printStackTrace()
         }
+
 
         override fun onImageSaved(photoFile: File) {
             Log.d(TAG, "Photo capture succeeded: ${photoFile.absolutePath}")
@@ -204,37 +205,40 @@ class CameraFragment : Fragment() {
 
         val viewFinderConfig = PreviewConfig.Builder().apply {
             setLensFacing(lensFacing)
-            setTargetAspectRatio(screenWidth)
             setTargetRotation(viewFinder.display.rotation)
         }.build()
 
         preview = AutoFitPreviewBuilder.build(viewFinderConfig, viewFinder)
+//        preview = Preview(viewFinderConfig)
+//        preview?.setOnPreviewOutputUpdateListener {
+//            viewFinder.surfaceTexture = it.surfaceTexture
+//        }
 
-        val imageCaptureConfig = ImageCaptureConfig.Builder().apply {
-            setLensFacing(lensFacing)
-            setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY)
-            setTargetAspectRatio(screenWidth)
-            setTargetRotation(viewFinder.display.rotation)
-        }.build()
-        imageCapture = ImageCapture(imageCaptureConfig)
-
-        val imageAnalysisConfig = ImageAnalysisConfig.Builder().apply {
-            setLensFacing(lensFacing)
-            setCallbackHandler(Handler(analzerThread.looper))
-            setImageReaderMode(ImageAnalysis.ImageReaderMode.ACQUIRE_LATEST_IMAGE)
-            setTargetRotation(viewFinder.display.rotation)
-        }.build()
-
-        imageAnalysis = ImageAnalysis(imageAnalysisConfig).apply {
-            analyzer = LuminosityAnalyzer { luma ->
-                val fps = (analyzer as LuminosityAnalyzer).framesPerSecond
-                Log.d(
-                    TAG, "Average luminosity: $luma. " +
-                            "Frames per second: ${"%.01f".format(fps)}"
-                )
-            }
-        }
-        CameraX.bindToLifecycle(viewLifecycleOwner, preview, imageCapture, imageAnalysis)
+//        val imageCaptureConfig = ImageCaptureConfig.Builder().apply {
+//            setLensFacing(lensFacing)
+//            setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY)
+//            setTargetAspectRatio(screenWidth)
+//            setTargetRotation(viewFinder.display.rotation)
+//        }.build()
+//        imageCapture = ImageCapture(imageCaptureConfig)
+//
+//        val imageAnalysisConfig = ImageAnalysisConfig.Builder().apply {
+//            setLensFacing(lensFacing)
+//            setCallbackHandler(Handler(analzerThread.looper))
+//            setImageReaderMode(ImageAnalysis.ImageReaderMode.ACQUIRE_LATEST_IMAGE)
+//            setTargetRotation(viewFinder.display.rotation)
+//        }.build()
+//
+//        imageAnalysis = ImageAnalysis(imageAnalysisConfig).apply {
+//            analyzer = LuminosityAnalyzer { luma ->
+//                val fps = (analyzer as LuminosityAnalyzer).framesPerSecond
+//                Log.d(
+//                    TAG, "Average luminosity: $luma. " +
+//                            "Frames per second: ${"%.01f".format(fps)}"
+//                )
+//            }
+//        }
+        CameraX.bindToLifecycle(viewLifecycleOwner, preview)
 
     }
 
@@ -251,7 +255,7 @@ class CameraFragment : Fragment() {
                 val metadata = ImageCapture.Metadata().apply {
                     isReversedHorizontal = lensFacing == CameraX.LensFacing.FRONT
                 }
-                imageCapture.takePicture(photoFile, imageSavedListener, metadata)
+//                imageCapture.takePicture(photoFile, imageSavedListener, metadata)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     container.postDelayed({
                         container.foreground = ColorDrawable(Color.WHITE)
@@ -280,6 +284,7 @@ class CameraFragment : Fragment() {
             Navigation.findNavController(requireActivity(), R.id.fragment_container)
                 .navigate(CameraFragmentDirections.actionCameraToGallery(outpueDirectory.absolutePath))
         }
+
     }
 
     companion object {

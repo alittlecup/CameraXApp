@@ -1,7 +1,6 @@
-package com.hbl.cameraxapp.fragments
+package com.hbl.cameraxapp.camerax
 
 import android.content.Intent
-import android.media.Image
 import android.media.MediaScannerConnection
 import android.os.Build
 import android.os.Bundle
