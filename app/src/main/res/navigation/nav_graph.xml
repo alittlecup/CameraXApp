@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/permissions_fragment"
-        android:name="com.hbl.cameraxapp.camerax.PermissionFragment"
+        android:name="com.hbl.cameraxapp.camera.camerax.PermissionFragment"
         android:label="PermissionsFragment">
 
         <action
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/camera_fragment"
-        android:name="com.hbl.cameraxapp.camerax.CameraFragment"
+        android:name="com.hbl.cameraxapp.camera.camerax.CameraFragment"
         android:label="CameraFragment">
 
         <action
@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/gallery_fragment"
-        android:name="com.hbl.cameraxapp.camerax.GalleryFragment"
+        android:name="com.hbl.cameraxapp.camera.camerax.GalleryFragment"
         android:label="GalleryFragment">
         <argument
             android:name="root_directory"

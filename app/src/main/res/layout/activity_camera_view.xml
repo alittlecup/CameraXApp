@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="actiivty"
+            type="com.hbl.cameraxapp.camera.CameraViewActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.camera.view.CameraView
+            android:id="@+id/view_finder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_ratio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="@{()->actiivty.onRatioChange()}"
+            android:padding="5dp"
+            android:src="@drawable/ic_ratio_1_1_black"
+            app:layout_constraintLeft_toRightOf="@id/img_switch"
+            app:layout_constraintRight_toLeftOf="@id/img_flash"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_flash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->actiivty.onFlashClick()}"
+            android:padding="5dp"
+            android:src="@drawable/ic_flash_on_black"
+            app:layout_constraintLeft_toRightOf="@id/img_ratio"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/img_ratio" />
+
+        <ImageView
+            android:id="@+id/img_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->actiivty.switchLenFacing()}"
+            android:padding="5dp"
+            android:src="@drawable/ic_switch_black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/img_ratio"
+            app:layout_constraintTop_toTopOf="@id/img_ratio" />
+
+
+        <ImageView
+            android:id="@+id/img_camera"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="100dp"
+            android:background="@color/colorPrimary"
+            android:onClick="@{()->actiivty.onCameraClick()}"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
