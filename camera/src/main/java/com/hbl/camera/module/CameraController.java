@@ -6,15 +6,14 @@ import java.io.File;
 import java.util.concurrent.Executor;
 
 public interface CameraController {
-    void open();
 
-    void close();
+    void setOnPreviewOutputListener(OnPreviewOutputListener listener);
 
     void takePicture(Executor executor, OnImageCapturedListener listener);
 
     void takePicture(File saveLocation, Executor executor, OnImageSavedListener listener);
 
-    void startRecordind(File file, Executor executor, OnVideoSavedListener listener);
+    void startRecording(File file, Executor executor, OnVideoSavedListener listener);
 
     void stopRecording();
 

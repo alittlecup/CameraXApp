@@ -1,32 +1,50 @@
 package com.hbl.camera.module;
 
 import android.content.Context;
+import android.util.Rational;
 
+import androidx.camera.core.AspectRatio;
 import androidx.camera.view.CameraView;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.hbl.camera.option.Size;
+
+
 public abstract class CameraModule implements CameraDevicesProvider, CameraController {
     protected final CameraModuleConfig cameraModuleConfig;
+
+    protected static final float UNITY_ZOOM_SCALE = 1f;
+
+    protected static final float ZOOM_NOT_SUPPORTED = UNITY_ZOOM_SCALE;
+
+
+
 
     public CameraModule(Context context, CameraModuleConfig cameraModuleConfig) {
         this.cameraModuleConfig = cameraModuleConfig;
     }
 
-    public abstract void bindLifecycle(LifecycleOwner lifecycleOwner);
+    public Size getTargetResolution() {
+        return cameraModuleConfig.getTargetResolution();
+    }
+
+    public int getTargetRotation() {
+        return cameraModuleConfig.getTargetRotation();
+    }
+
+    public AspectRatio getAspectRatio() {
+        return cameraModuleConfig.getTargetAspectRatio();
+    }
+
+
+    public abstract void bindToLifecycle(LifecycleOwner lifecycleOwner);
 
     public enum CaptureMode {
-        /**
-         * A mode where image capture is enabled.
-         */
+
         IMAGE(0),
-        /**
-         * A mode where video capture is enabled.
-         */
+
         VIDEO(1),
-        /**
-         * A mode where both image capture and video capture are simultaneously enabled. Note that
-         * this mode may not be available on every device.
-         */
+
         MIXED(2);
 
         private int mId;

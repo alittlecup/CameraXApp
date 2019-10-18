@@ -9,7 +9,7 @@ public final class PreviewOutput {
     Size size;
     int rotationDegrees;
 
-    PreviewOutput(SurfaceTexture surfaceTexture, Size textSize, int rotationDegrees) {
+    public PreviewOutput(SurfaceTexture surfaceTexture, Size textSize, int rotationDegrees) {
         this.size = textSize;
         this.surfaceTexture = surfaceTexture;
         this.rotationDegrees = rotationDegrees;

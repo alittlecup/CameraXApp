@@ -1,17 +1,20 @@
 package com.hbl.cameraxapp.camera
 
 import android.annotation.SuppressLint
-import android.opengl.ETC1.getHeight
+import android.graphics.SurfaceTexture
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.DisplayMetrics
-import android.util.Rational
-import android.util.Size
 import android.view.Surface
+import android.view.TextureView
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
-import androidx.camera.core.impl.utils.executor.CameraXExecutors
 import androidx.databinding.DataBindingUtil
+import com.hbl.camera.module.Camera1Module
+import com.hbl.camera.module.CameraModuleConfig
+import com.hbl.camera.module.CameraModuleFactory
+import com.hbl.camera.module.CameraXModule
+import com.hbl.camera.option.CameraModule
 import com.hbl.cameraxapp.R
 import com.hbl.cameraxapp.databinding.ActivityCameraViewBinding
 import com.hbl.cameraxapp.utils.toast
@@ -23,12 +26,30 @@ class CameraViewActivity : AppCompatActivity() {
             R.layout.activity_camera_view
         )
     }
-
+    lateinit var cameraModule: com.hbl.camera.module.CameraModule
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding.actiivty = this
+        var cameraModuleConfig =
+            CameraModuleConfig.Builder().setLensFacing(CameraModule.LensFacing.BACK)
+                .setTargetRotation(Surface.ROTATION_90)
+                .setTargetAspectRatio(AspectRatio.RATIO_4_3)
+                .setTargetResolution(com.hbl.camera.option.Size(1080, 1920))
+                .build()
+        cameraModule = CameraModuleFactory.create(this, cameraModuleConfig);
+        cameraModule.setOnPreviewOutputListener {
+            dataBinding.apply {
+                var viewGroup = viewFinder.parent as ViewGroup
+                viewGroup.removeView(viewFinder)
+                viewGroup.addView(viewFinder, 0)
+                viewFinder.surfaceTexture = it.surfaceTexture
+            }
+        }
+        if (cameraModule is Camera1Module) {
+            (cameraModule as Camera1Module).setSurfaceTexture(dataBinding.viewFinder.surfaceTexture)
+        }
+        cameraModule.bindToLifecycle(this)
 
-        dataBinding.viewFinder.bindToLifecycle(this)
     }
 
     @SuppressLint("RestrictedApi")
@@ -40,7 +61,6 @@ class CameraViewActivity : AppCompatActivity() {
     fun onFlashClick() {
         flashMode = !flashMode
         dataBinding.imgFlash.setImageResource(if (flashMode) R.drawable.ic_flash_on_black else R.drawable.ic_flash_off_black)
-        dataBinding.viewFinder.flash = if (flashMode) FlashMode.ON else FlashMode.OFF
     }
 
     var ratio: Int = 1
@@ -97,7 +117,6 @@ class CameraViewActivity : AppCompatActivity() {
             CameraX.LensFacing.BACK -> CameraX.LensFacing.FRONT
         }
         toast(lensFacing.name)
-
-        dataBinding.viewFinder.cameraLensFacing = lensFacing
+        cameraModule.toggleCamera()
     }
 }

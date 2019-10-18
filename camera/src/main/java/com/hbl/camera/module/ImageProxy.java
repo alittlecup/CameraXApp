@@ -9,7 +9,7 @@ import androidx.camera.core.ImageInfo;
 public class ImageProxy implements androidx.camera.core.ImageProxy {
     private final androidx.camera.core.ImageProxy imageProxy;
 
-    public ImageProxy(ImageProxy imageProxy) {
+    public ImageProxy(androidx.camera.core.ImageProxy imageProxy) {
         this.imageProxy = imageProxy;
     }
 
